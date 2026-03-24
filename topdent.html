@@ -819,22 +819,180 @@
 
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    nav { padding: 1.5rem 2rem; }
+  /* ── HAMBURGER ── */
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; background: none; border: none; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--gold); border-radius: 2px; transition: all 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none; position: fixed; inset: 0; z-index: 99;
+    background: rgba(8,12,16,0.98); backdrop-filter: blur(16px);
+    flex-direction: column; align-items: center; justify-content: center; gap: 0;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  .mobile-menu.open { display: flex; opacity: 1; pointer-events: all; }
+  .mobile-menu a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 300; letter-spacing: 0.12em;
+    color: rgba(232,228,220,0.7); text-decoration: none;
+    padding: 1rem 3rem; width: 100%; text-align: center;
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+    transition: color 0.2s;
+  }
+  .mobile-menu a:first-child { border-top: 1px solid rgba(201,168,76,0.08); }
+  .mobile-menu a:hover { color: var(--gold); }
+  .mobile-menu .mm-book {
+    margin-top: 2rem;
+    background: transparent; border: 1px solid var(--gold);
+    color: var(--gold); padding: 0.8rem 2.5rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.8rem;
+    letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer;
+    transition: all 0.3s;
+  }
+  .mobile-menu .mm-book:hover { background: var(--gold); color: var(--dark); }
+
+  /* ── MACBOOK 1024–1280px ── */
+  @media (max-width: 1280px) {
+    nav { padding: 1.5rem 3rem; }
+    .hero { padding: 0 3rem; }
+    .hero-stats { left: 3rem; }
+    section { padding: 6rem 3rem; }
+    .location-section { padding: 6rem 3rem; }
+    footer { padding: 4rem 3rem 2rem; }
+  }
+
+  /* ── TABLET 768–1024px ── */
+  @media (max-width: 1024px) {
+    nav { padding: 1.2rem 2rem; }
     .nav-links { display: none; }
-    .hero { grid-template-columns: 1fr; padding: 0 2rem; }
+    .nav-cta { display: none; }
+    .hamburger { display: flex; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 0 2rem;
+      min-height: 100svh;
+      padding-bottom: 180px;
+    }
     .hero-visual { display: none; }
-    section { padding: 4rem 2rem; }
-    .services-header { grid-template-columns: 1fr; }
-    .services-grid { grid-template-columns: 1fr; }
-    .why-section { grid-template-columns: 1fr; }
-    .doctors-grid { grid-template-columns: 1fr; }
-    .booking-inner { grid-template-columns: 1fr; }
-    .reviews-grid { grid-template-columns: 1fr; }
+    .hero-content { padding-top: 7rem; }
+    .hero h1 { font-size: clamp(3rem, 7vw, 4.5rem); }
+    .hero-stats {
+      left: 0; right: 0;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; bottom: 0;
+    }
+    .stat { padding: 1.2rem 1.5rem; background: rgba(14,21,30,0.9); border-right: 1px solid rgba(201,168,76,0.08); }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-size: 1.8rem; }
+
+    section { padding: 5rem 2rem; }
+    .location-section { padding: 5rem 2rem; }
+    footer { padding: 4rem 2rem 2rem; }
+
+    .services-header { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .why-section { grid-template-columns: 1fr; gap: 3rem; }
+
+    .doctors-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+
+    .booking-inner { grid-template-columns: 1fr; gap: 3rem; }
+
+    .reviews-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; margin-bottom: 2.5rem; }
+    .rating-hero { text-align: left; display: flex; align-items: center; gap: 1rem; }
+    .rating-big { font-size: 3.5rem; }
+    .reviews-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+
     .location-section { grid-template-columns: 1fr; }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-    .hero-stats { left: 2rem; }
+
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+
+  /* ── MOBILE < 768px ── */
+  @media (max-width: 767px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-logo { font-size: 1.5rem; }
+    .hamburger { display: flex; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 0 1.25rem;
+      min-height: 100svh;
+      padding-bottom: 220px;
+      align-items: flex-start;
+    }
+    .hero-visual { display: none; }
+    .hero-content { padding-top: 6rem; }
+    .hero h1 { font-size: clamp(2.6rem, 10vw, 3.5rem); }
+    .hero-desc { font-size: 0.92rem; max-width: 100%; }
+    .hero-actions { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+    .btn-primary { text-align: center; padding: 1rem; }
+    .btn-ghost { justify-content: center; }
+
+    .hero-stats {
+      left: 0; right: 0; bottom: 0;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+    .stat { padding: 1rem 0.75rem; background: rgba(14,21,30,0.95); border-right: 1px solid rgba(201,168,76,0.08); text-align: center; }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-size: 1.5rem; }
+    .stat-label { font-size: 0.6rem; letter-spacing: 0.08em; }
+
+    section { padding: 3.5rem 1.25rem; }
+    .location-section { padding: 3.5rem 1.25rem; grid-template-columns: 1fr; gap: 2.5rem; }
+
+    .section-title { font-size: clamp(2rem, 8vw, 2.8rem); }
+
+    .services-header { grid-template-columns: 1fr; gap: 1.25rem; margin-bottom: 2rem; }
+    .services-grid { grid-template-columns: 1fr; gap: 1px; }
+    .service-card { padding: 2rem 1.5rem; }
+
+    .why-section { grid-template-columns: 1fr; gap: 2.5rem; }
+    .why-box { padding: 2rem 1.5rem; }
+    .why-quote { font-size: 1.3rem; }
+    .why-features { gap: 1.5rem; }
+    .why-feature { padding-bottom: 1.5rem; gap: 1rem; }
+
+    .doctors-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .doctor-img { height: 200px; }
+
+    .booking-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .booking-form { padding: 1.75rem 1.25rem; }
+    .booking-contact { gap: 1rem; }
+    .form-row { grid-template-columns: 1fr; gap: 0.75rem; }
+
+    .reviews-header { flex-direction: column; align-items: flex-start; gap: 1.25rem; margin-bottom: 2rem; }
+    .rating-hero { text-align: left; display: flex; align-items: center; gap: 1rem; }
+    .rating-big { font-size: 3rem; }
+    .reviews-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .review-card { padding: 1.5rem; }
+
+    .map-placeholder { height: 280px; }
+    .hours-row { flex-direction: column; gap: 0.2rem; padding: 0.75rem 0; align-items: flex-start; }
+
+    footer { padding: 3rem 1.25rem 1.5rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-desc { max-width: 100%; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+
+  /* ── VERY SMALL < 380px ── */
+  @media (max-width: 380px) {
+    .hero h1 { font-size: 2.3rem; }
+    .hero-stats { grid-template-columns: repeat(3,1fr); }
+    .stat-num { font-size: 1.3rem; }
+    .stat-label { font-size: 0.55rem; }
   }
 </style>
 </head>
@@ -850,7 +1008,20 @@
     <li><a href="#location">Location</a></li>
   </ul>
   <button class="nav-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Book Appointment</button>
+  <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" onclick="closeNav()">Services</a>
+  <a href="#doctors" onclick="closeNav()">Doctors</a>
+  <a href="#booking" onclick="closeNav()">Book Appointment</a>
+  <a href="#reviews" onclick="closeNav()">Reviews</a>
+  <a href="#location" onclick="closeNav()">Location</a>
+  <button class="mm-book" onclick="closeNav(); document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Book Now →</button>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -1327,6 +1498,20 @@
 </footer>
 
 <script>
+  // Hamburger menu
+  function toggleNav() {
+    const menu = document.getElementById('mobileMenu');
+    const btn  = document.getElementById('hamburger');
+    const open = menu.classList.contains('open');
+    if (open) { menu.classList.remove('open'); btn.classList.remove('open'); document.body.style.overflow = ''; }
+    else       { menu.classList.add('open');    btn.classList.add('open');    document.body.style.overflow = 'hidden'; }
+  }
+  function closeNav() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
